@@ -123,6 +123,3 @@ class Student(Person):
     adrs=models.OneToOneField(address,on_delete=models.CASCADE)#,primary_key=True)
     class Meta():
         db_table='Student'
-
-
-#hello
