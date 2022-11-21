@@ -10,6 +10,9 @@ from http import HTTPStatus
 from django.db import connections
 from faker import Faker # for fake names etc
 # Create your tests here.
+
+#granted create db to our user so he can create test db
+
 class testServerWorking(APITransactionTestCase):
     reset_sequences = True
     def test_server_working(self):
@@ -104,5 +107,49 @@ class TestAddress(APITransactionTestCase):
         self.assertEqual(response.status_code,404)
         
     #we should test the put method cuz its integrated in ourviewset methods
-    
-    
+    def test_update_adrs(self):
+        adrs1=address.objects.create(street= "this street",
+        city= "this city",
+        adrs= "this adrs",
+        zip_code= 1000)
+        response=self.client.put(f'http://127.0.0.1:8000/university/Address/{adrs1.id}/',{
+            "street": "new_street",
+            "city": "this city",
+            "adrs": "this adrs",
+            "zip_code": 2080
+        })
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.data['street'],"new_street")
+        self.assertEqual(response.data['city'],"this city")
+        self.assertEqual(response.data['adrs'],"this adrs")
+        self.assertEqual(response.data['zip_code'],2080)
+        
+        #try to get the user and verify again
+        response_adrs1=self.client.get(f'http://127.0.0.1:8000/university/Address/{adrs1.id}/')
+        self.assertEqual(response_adrs1.status_code,200)
+        self.assertEqual(response.data['street'],"new_street")
+        self.assertEqual(response.data['city'],"this city")
+        self.assertEqual(response.data['adrs'],"this adrs")
+        self.assertEqual(response.data['zip_code'],2080)
+    def test_update_adrs_wrong_id(self):
+        response=self.client.put(f'http://127.0.0.1:8000/university/Address/-1000/',{
+            "street": "new_street",
+            "city": "this city",
+            "adrs": "this adrs",
+            "zip_code": 2080
+        })
+        self.assertEqual(response.status_code,404)
+    def test_update_adrs_with_invalid_data(self): # provide invalid json
+        adrs1=address.objects.create(street= "this street",
+        city= "this city",
+        adrs= "this adrs",
+        zip_code= 1000)
+        
+        response=self.client.put(f'http://127.0.0.1:8000/university/Address/{adrs1.id}/',{
+            "name": "azerty",
+            "descr": "lakzejalj",
+        },
+        content_type="application/json")
+        self.assertEqual(response.status_code,400) #400 server cannot proceed lput ly amalneha
+        
+        
