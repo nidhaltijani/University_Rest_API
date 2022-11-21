@@ -86,11 +86,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'university_db',
-        'USER': 'user1',
+        'USER': 'user1', # we gave him the privilege to create db for tests in pgadmin
         'PASSWORD' : 'user001',
         'HOST' : 'localhost',
-        'PORT' : 5432
+        'PORT' : 5432,
+        # added for tests  to give permession for db
+        #'TEST': { 'MIRROR': 'default' }
+        
     }
+    
 }
 
 
@@ -137,4 +141,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # added for code coverage
+#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+"""
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--nocapture',
+    '--verbosity=2',
+    '--with-timer',
+    '--timer-top-n=10',
+    '--with-id'
+]"""

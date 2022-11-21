@@ -11,7 +11,7 @@ from django.utils import timezone
 class University(models.Model):
     name=models.CharField(max_length=50,null=False,blank=False,default='')
     location=models.CharField(max_length=30,null=False,blank=False,default='')
-    class Meta():
+    class Meta:
         db_table='University'
 
 
@@ -24,7 +24,7 @@ class Module(models.Model):
     semester=models.IntegerField(choices=semesters.choices,default=semesters.semestre1) # comme level
     coef=models.FloatField(default=1.0)
     credit=models.IntegerField(default=2)
-    class Meta():
+    class Meta:
         db_table='Module'
 
 
@@ -35,7 +35,7 @@ class Person(models.Model):
     birthDay=models.DateField(null=True,blank=True)#default=date(2004,1,1))
     email=models.EmailField(null=False,blank=False,max_length=100,default='example@xyz.com')
 
-    class Meta():
+    class Meta:
         ordering=['name','familyName']
         abstract=True
 
@@ -52,7 +52,7 @@ class Teacher(Person):
     teacherModule=models.ManyToManyField(Module,through='TeacherModules',through_fields=('teacher','module'))
     nbHours=models.DecimalField(max_digits=4,decimal_places=2,default=21.0) # max digits  4 dedans 2 aprs la virgule
     #float field mandhesh params kyma decimal field
-    class Meta():
+    class Meta:
         db_table='Teacher'
 
 
@@ -61,7 +61,7 @@ class TeacherModules(models.Model):
     module=models.ForeignKey(Module,on_delete=models.CASCADE)
     year=models.PositiveIntegerField(default=timezone.now().year)
     nbHours=models.DecimalField(max_digits=4,decimal_places=2,default=21.0) # max digits  4 dedans 2 aprs la virgule
-    class Meta():
+    class Meta:
         db_table='TeacherModules'
 
 
@@ -81,7 +81,7 @@ class Group(models.Model):
     level=models.CharField(max_length=20,choices=levels.choices,default=levels.premiere)
     # * à * entre modules et grp
     study=models.ManyToManyField(Module)
-    class Meta():
+    class Meta:
         db_table='Group'
 
 
@@ -90,7 +90,7 @@ class address(models.Model):
     city=models.CharField(max_length=30,null=False,blank=False,default='')
     adrs=models.CharField(max_length=35,null=False,blank=False,default='')
     zip_code=models.IntegerField(null=False,blank=False,default=0000)
-    class Meta():
+    class Meta:
         db_table='Address'
 
 #date a verifier si un prob occ
@@ -98,7 +98,7 @@ class listOfAbs(models.Model):
     date=models.DateField(null=True,blank=True)#,default=timezone.now().date) 
     motif=models.CharField(default='',max_length=100)
     justification=models.CharField(default='',max_length=100)
-    class Meta():
+    class Meta:
         db_table='ListOfAbs'
 
 class Student(Person):
@@ -121,5 +121,5 @@ class Student(Person):
     grp=models.ForeignKey(Group,null=True,blank=True,on_delete=models.CASCADE)
     # 1 à  1 student et adrs
     adrs=models.OneToOneField(address,on_delete=models.CASCADE)#,primary_key=True)
-    class Meta():
+    class Meta:
         db_table='Student'
