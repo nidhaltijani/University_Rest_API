@@ -1,4 +1,4 @@
-from django.test import TestCase , RequestFactory,SimpleTestCase
+from django.test import TestCase 
 from ..models import *
 
 class test_university(TestCase):

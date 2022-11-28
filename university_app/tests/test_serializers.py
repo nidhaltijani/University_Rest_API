@@ -1,12 +1,7 @@
-from django.test import TestCase , RequestFactory,SimpleTestCase,TransactionTestCase
+from django.test import TestCase 
 from ..models import *
 from ..viewsets import *
 from ..serializers import *
-from rest_framework.test import APIClient,APITestCase,APITransactionTestCase
-from django.contrib.auth.models import User ,AnonymousUser
-import json
-from django.urls import reverse, resolve
-from http import HTTPStatus
 from django.db import connections
 
 # address serializer
