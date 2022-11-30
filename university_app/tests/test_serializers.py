@@ -15,7 +15,7 @@ class testAddress(TestCase):
         }
         serializer=addressSerializer(data=valid_data)
         self.assertTrue(serializer.is_valid())
-        self.assertEqual(serializer.validated_data,valid_data)
+        self.assertEqual(serializer.validated_data,valid_data) #is_valid before
         self.assertEqual(serializer.data,valid_data)
         self.assertEqual(serializer.errors,{})
         

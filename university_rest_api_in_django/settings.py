@@ -90,8 +90,7 @@ DATABASES = {
         'PASSWORD' : 'user001',
         'HOST' : 'localhost',
         'PORT' : 5432,
-        # added for tests  to give permession for db
-        #'TEST': { 'MIRROR': 'default' }
+        
         
     }
     
@@ -143,6 +142,86 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # added for code coverage
 #TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--nocapture',

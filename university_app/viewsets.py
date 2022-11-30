@@ -15,3 +15,8 @@ class addressViewset(viewsets.ModelViewSet):
     queryset=address.objects.all()
     serializer_class=addressSerializer
     http_method_name=["get","post","put","delete"]
+    
+class moduleViewset(viewsets.ModelViewSet):
+    queryset=Module.objects.all()
+    serializer_class=moduleSerializer
+    http_method_name=["get","post","put","delete"]    

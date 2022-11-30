@@ -14,3 +14,8 @@ class addressSerializer(serializers.ModelSerializer):
     class Meta():
         model=address 
         fields='__all__'
+
+class moduleSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Module 
+        fields='__all__'

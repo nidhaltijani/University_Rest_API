@@ -19,7 +19,15 @@ class testServerWorking(APITestCase):
 class TestAddress(APITransactionTestCase):
     
     reset_sequences = True
-        
+    
+    #TODO : talk about setup classmethod
+    
+    def setUp(self):
+        pass
+    
+    def tearDown(self):
+        pass
+    
     def test_add_address(self):
         data={
             "street": "new_street",
@@ -36,6 +44,7 @@ class TestAddress(APITransactionTestCase):
         self.assertEqual(response.data['street'],"new_street")
         n=address.objects.count()
         self.assertEqual(n,addresses+1)
+        
     
     def test_get_adrs_by_id(self):
         """
@@ -48,15 +57,16 @@ class TestAddress(APITransactionTestCase):
         response=self.client.get(f'http://127.0.0.1:8000/university/Address/{adr.id}/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['zip_code'],3081)
+        
     
-    def test_get_adrs_by_invali_id(self):
+    def test_get_adrs_by_invalid_id(self):
         """
         provide invalid id
         """
         response=self.client.get(f'http://127.0.0.1:8000/university/Address/-5/')
         self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND) # not found
-    def test_get_all_adresses(self):
         
+    def test_get_all_adresses(self):
         adrs1=address.objects.create(street= "this street",
         city= "this city",
         adrs= "this adrs",
@@ -125,6 +135,7 @@ class TestAddress(APITransactionTestCase):
         self.assertEqual(response.data['city'],"this city")
         self.assertEqual(response.data['adrs'],"this adrs")
         self.assertEqual(response.data['zip_code'],2080)
+        
     def test_update_adrs_wrong_id(self):
         response=self.client.put(f'http://127.0.0.1:8000/university/Address/-1000/',{
             "street": "new_street",
@@ -133,6 +144,7 @@ class TestAddress(APITransactionTestCase):
             "zip_code": 2080
         })
         self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+        
     def test_update_adrs_with_invalid_data(self): # provide invalid json
         adrs1=address.objects.create(street= "this street",
         city= "this city",

@@ -21,7 +21,7 @@ class Module(models.Model):
         semestre2='S2','deuxieme semestre'
     name=models.CharField(max_length=70,null=False,blank=False,default='')
     nbHours=models.DecimalField(max_digits=4,decimal_places=2,default=21.0) # max digits  4 dedans 2 aprs la virgule
-    semester=models.IntegerField(choices=semesters.choices,default=semesters.semestre1) # comme level
+    semester=models.CharField(choices=semesters.choices,default=semesters.semestre1,max_length=150) # comme level
     coef=models.FloatField(default=1.0)
     credit=models.IntegerField(default=2)
     class Meta:
